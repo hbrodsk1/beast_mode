@@ -56,13 +56,6 @@ RSpec.describe UsersController, type: :controller do
 		end
 	end
 
-	describe '#user_params' do
-		let(:params) { FactoryGirl.attributes_for(:user)}
-		it "should permit only whitelisted attributes" do
-    		is_expected.to permit(:username, :email, :password).for(:create, params: { :user => params} ).on(:user)
-    	end
-	end
-
 	describe '#create' do
 		context "with valid attributes" do
 			let(:user_params) { FactoryGirl.attributes_for(:user) }
@@ -89,6 +82,95 @@ RSpec.describe UsersController, type: :controller do
 				expect(response).to render_template('new')
 			end
 		end
+	end
+
+	describe '#edit' do
+		let(:user) { FactoryGirl.create(:user) }
+
+		it "responds successfully with an HTTP 200 status code" do
+			get :edit, params: { id: user }
+			expect(response).to have_http_status(200)
+		end
+
+		it "renders the edit template" do
+			get :edit, params: { id: user }
+			expect(response).to render_template('edit')
+		end
+
+		it "assigns the requested user to @user" do
+			get :edit, params: { id: user }
+			expect(assigns(:user)).to eq(user)
+		end
+	end
+
+	describe '#update' do
+		let(:user) { FactoryGirl.create(:user) }
+		let(:updated_attributes) { FactoryGirl.attributes_for(:user_2) }
+		let(:invalid_updated_attributes) { FactoryGirl.attributes_for(:invalid_user) }
+
+		context "with valid attributes" do
+			it "assigns the requested user to @user" do
+				patch :update, params: { id: user, :user => updated_attributes }
+				expect(assigns(:user)).to eq(user)
+			end
+
+			it "updates user attributes" do
+				patch :update, params: { id: user, :user => updated_attributes }
+				user.reload
+				expect(user).to have_attributes(FactoryGirl.attributes_for(:user_2))
+			end
+
+			it "redirects to user page" do
+				patch :update, params: { id: user, :user => updated_attributes }
+				expect(response).to redirect_to(user_url(user))
+			end
+		end
+
+		context "with invalid attributes" do
+			it "assigns the requested user to @user" do
+				patch :update, params: { id: user, :user => updated_attributes }
+				expect(assigns(:user)).to eq(user)
+			end
+
+			it "does not update user" do
+				patch :update, params: { id: user, :user => invalid_updated_attributes }
+				user.reload
+				expect(user).to have_attributes(FactoryGirl.attributes_for(:user))
+			end
+
+			it "renders the edit template" do
+				patch :update, params: { id: user, :user => invalid_updated_attributes }
+				expect(response).to render_template('edit')
+			end
+		end
+	end
+
+	describe '#destroy' do
+		before :each do 
+			@user = FactoryGirl.create(:user)
+  		end
+
+		it "assigns the requested user to @user" do
+			delete :destroy, params: { id: @user }
+			expect(assigns(:user)).to eq(@user)
+		end
+
+		it "deletes the requested user" do
+			expect { delete :destroy, params: { id: @user } }.to change(User, :count).by(-1)
+		end
+
+		it "redirects to the user index page" do
+			delete :destroy, params: { id: @user }
+			expect(response).to redirect_to(users_url) 
+		end
+	end
+
+
+	describe '#user_params' do
+		let(:params) { FactoryGirl.attributes_for(:user)}
+		it "should permit only whitelisted attributes" do
+    		is_expected.to permit(:username, :email, :password).for(:create, params: { user: params} ).on(:user)
+    	end
 	end
 
 end
