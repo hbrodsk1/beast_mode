@@ -127,11 +127,6 @@ RSpec.describe UsersController, type: :controller do
 		end
 
 		context "with invalid attributes" do
-			it "assigns the requested user to @user" do
-				patch :update, params: { id: user, :user => updated_attributes }
-				expect(assigns(:user)).to eq(user)
-			end
-
 			it "does not update user" do
 				patch :update, params: { id: user, :user => invalid_updated_attributes }
 				user.reload
