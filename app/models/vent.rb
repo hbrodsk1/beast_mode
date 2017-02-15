@@ -1,0 +1,2 @@
+class Vent < Outlet
+end
