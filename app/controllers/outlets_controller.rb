@@ -48,6 +48,6 @@ class OutletsController < ApplicationController
 	private
 
 	def outlet_params
-		params.require(:outlet).permit(:type, :title, :body, :urgency, :user)
+		params.require(:outlet).permit(:category, :title, :body, :urgency, :user)
 	end
 end

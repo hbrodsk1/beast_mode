@@ -172,7 +172,7 @@ RSpec.describe OutletsController, type: :controller do
 		let(:user) { FactoryGirl.create(:user) }
 		let(:params) { FactoryGirl.attributes_for(:outlet)}
 		it "should permit only whitelisted attributes" do
-    		is_expected.to permit(:type, :title, :body, :urgency, :user).for(:create, params: { id: user, outlet: params} ).on(:outlet)
+    		is_expected.to permit(:category, :title, :body, :urgency, :user).for(:create, params: { id: user, outlet: params} ).on(:outlet)
     	end
 	end
 end

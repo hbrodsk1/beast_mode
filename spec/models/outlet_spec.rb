@@ -11,15 +11,20 @@ RSpec.describe Outlet, type: :model do
 	end
 
 	context 'validations' do
-		it { is_expected.to validate_presence_of(:type) }
+		it { is_expected.to validate_presence_of(:category) }
+		it { is_expected.to validate_inclusion_of(:category).in_array(['vent', 'rant', 'qualm']) }
 		it { is_expected.to validate_presence_of(:title) }
 		it { is_expected.to validate_length_of(:title) }
 		it { is_expected.to validate_presence_of(:body) }
 		it { is_expected.to validate_length_of(:body) }
 		it { is_expected.to validate_presence_of(:urgency) }
 		
-		it "is invalid without a type" do
-			expect(FactoryGirl.build(:outlet, type: nil)).to be_invalid
+		it "is invalid without a category" do
+			expect(FactoryGirl.build(:outlet, category: nil)).to be_invalid
+		end
+
+		it "is invalid with a category not included in the accepted list of categories" do
+			expect(FactoryGirl.build(:outlet, category: 'invalid_category')).to be_invalid
 		end
 
 		it "is invalid without a title" do

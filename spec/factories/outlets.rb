@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :outlet do
-    type "Outlet"
+    category "vent"
     title "MyString"
     body "MyText"
     urgency 1
@@ -8,7 +8,7 @@ FactoryGirl.define do
   end
 
   factory :outlet_2, class: Outlet do
-    type "Outlet"
+    category "rant"
     title "MyString_2"
     body "MyText_2"
     urgency 2
@@ -16,7 +16,7 @@ FactoryGirl.define do
   end
 
   factory :invalid_outlet, class: Outlet do
-    type "Outlet"
+    category "qualm"
     title ""
     body ""
     urgency 3

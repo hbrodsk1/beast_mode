@@ -1,2 +1,0 @@
-class Vent < Outlet
-end
