@@ -6,8 +6,9 @@ RSpec.describe Outlet, type: :model do
 		expect(FactoryGirl.create(:outlet)).to be_valid
 	end
 
-	context 'association' do
+	context 'associations' do
 		it { is_expected.to belong_to(:user) }
+		it { is_expected.to have_many(:comments) }
 	end
 
 	context 'validations' do
@@ -18,6 +19,7 @@ RSpec.describe Outlet, type: :model do
 		it { is_expected.to validate_presence_of(:body) }
 		it { is_expected.to validate_length_of(:body) }
 		it { is_expected.to validate_presence_of(:urgency) }
+		it { is_expected.to validate_presence_of(:user) }
 		
 		it "is invalid without a category" do
 			expect(FactoryGirl.build(:outlet, category: nil)).to be_invalid
@@ -59,6 +61,10 @@ RSpec.describe Outlet, type: :model do
 
 		it "is invalid with an urgency greater than 10" do
 			expect(FactoryGirl.build(:outlet, urgency: 11)).to be_invalid
+		end
+
+		it "is invalid without a user" do
+			expect(FactoryGirl.build(:outlet, user: nil)).to be_invalid
 		end
 	end
 end

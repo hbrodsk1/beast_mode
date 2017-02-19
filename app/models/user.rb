@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 	has_many :outlets
+	has_many :comments
 	
 	validates :username, :email, :encrypted_password, presence: true
 	validates :username, :email, uniqueness: true

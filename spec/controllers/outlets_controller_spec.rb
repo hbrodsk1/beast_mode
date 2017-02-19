@@ -51,7 +51,7 @@ RSpec.describe OutletsController, type: :controller do
 			expect(response).to render_template('show')
 		end
 
-		it "assigns the requested user to @user" do
+		it "assigns the requested outlet to @outlet" do
 			get :show, params: { id: outlet }
 			expect(assigns(:outlet)).to eq(outlet)
 		end
@@ -104,7 +104,7 @@ RSpec.describe OutletsController, type: :controller do
 			expect(response).to render_template('edit')
 		end
 
-		it "assigns the requested user to @outlet" do
+		it "assigns the requested outlet to @outlet" do
 			get :edit, params: { id: outlet }
 			expect(assigns(:outlet)).to eq(outlet)
 		end
@@ -121,20 +121,20 @@ RSpec.describe OutletsController, type: :controller do
 				expect(assigns(:outlet)).to eq(outlet)
 			end
 
-			it "updates user attributes" do
+			it "updates outlet attributes" do
 				patch :update, params: { id: outlet, :outlet => updated_attributes }
 				outlet.reload
 				expect(outlet).to have_attributes(FactoryGirl.attributes_for(:outlet_2))
 			end
 
-			it "redirects to user page" do
+			it "redirects to outlet page" do
 				patch :update, params: { id: outlet, :outlet => updated_attributes }
 				expect(response).to redirect_to(outlet_url(outlet))
 			end
 		end
 
 		context "with invalid attributes" do
-			it "does not update user" do
+			it "does not update outlet" do
 				patch :update, params: { id: outlet, :outlet => invalid_updated_attributes }
 				outlet.reload
 				expect(outlet).to have_attributes(FactoryGirl.attributes_for(:outlet))
@@ -152,16 +152,16 @@ RSpec.describe OutletsController, type: :controller do
 			@outlet = FactoryGirl.create(:outlet)
   		end
 
-		it "assigns the requested user to @outlet" do
+		it "assigns the requested outlet to @outlet" do
 			delete :destroy, params: { id: @outlet }
 			expect(assigns(:outlet)).to eq(@outlet)
 		end
 
-		it "deletes the requested user" do
+		it "deletes the requested outlet" do
 			expect { delete :destroy, params: { id: @outlet } }.to change(Outlet, :count).by(-1)
 		end
 
-		it "redirects to the user index page" do
+		it "redirects to the outlet index page" do
 			delete :destroy, params: { id: @outlet }
 			expect(response).to redirect_to(outlets_url) 
 		end

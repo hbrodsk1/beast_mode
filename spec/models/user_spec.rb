@@ -2,11 +2,14 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-	it { is_expected.to have_many(:outlets) }
-
 	it "has a valid factory" do
-			expect(FactoryGirl.create(:user)).to be_valid
-		end
+		expect(FactoryGirl.create(:user)).to be_valid
+	end
+
+	context 'associations' do
+		it { is_expected.to have_many(:outlets) }
+		it { is_expected.to have_many(:comments) }
+	end
 
 	context 'validations' do
 		it { is_expected.to validate_presence_of(:username) }

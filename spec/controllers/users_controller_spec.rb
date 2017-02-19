@@ -14,7 +14,7 @@ RSpec.describe UsersController, type: :controller do
 		end
 
 		it "assigns all users as @users" do
-			user_1, user_2 = FactoryGirl.create(:user), FactoryGirl.create(:user_2) 
+			user_1, user_2 = FactoryGirl.create(:user), FactoryGirl.create(:user) 
 			get :index
 			expect(assigns(:users)).to match_array([user_1, user_2])
 		end
@@ -104,37 +104,41 @@ RSpec.describe UsersController, type: :controller do
 	end
 
 	describe '#update' do
-		let(:user) { FactoryGirl.create(:user) }
-		let(:updated_attributes) { FactoryGirl.attributes_for(:user_2) }
-		let(:invalid_updated_attributes) { FactoryGirl.attributes_for(:invalid_user) }
+		before :each do
+			@user = FactoryGirl.create(:singular_user)
+			@updated_attributes = FactoryGirl.attributes_for(:singular_user, username: "new_username", email: "new_email@example.com")
+			@invalid_attributes = FactoryGirl.attributes_for(:invalid_user)
+		end
 
 		context "with valid attributes" do
 			it "assigns the requested user to @user" do
-				patch :update, params: { id: user, :user => updated_attributes }
-				expect(assigns(:user)).to eq(user)
+				patch :update, params: { id: @user, :user => @updated_attributes }
+				expect(assigns(:user)).to eq(@user)
 			end
 
 			it "updates user attributes" do
-				patch :update, params: { id: user, :user => updated_attributes }
-				user.reload
-				expect(user).to have_attributes(FactoryGirl.attributes_for(:user_2))
+				patch :update, params: { id: @user, :user => @updated_attributes }
+				@user.reload
+				expect(@user.username).to eq("new_username")
+				expect(@user.email).to eq("new_email@example.com")
+				expect(@user.password).to eq(@updated_attributes[:password])
 			end
 
 			it "redirects to user page" do
-				patch :update, params: { id: user, :user => updated_attributes }
-				expect(response).to redirect_to(user_url(user))
+				patch :update, params: { id: @user, :user => @updated_attributes }
+				expect(response).to redirect_to(user_url(@user))
 			end
 		end
 
 		context "with invalid attributes" do
 			it "does not update user" do
-				patch :update, params: { id: user, :user => invalid_updated_attributes }
-				user.reload
-				expect(user).to have_attributes(FactoryGirl.attributes_for(:user))
+				patch :update, params: { id: @user, :user => @invalid_attributes }
+				@user.reload
+				expect(@user).to have_attributes(FactoryGirl.attributes_for(:singular_user))
 			end
 
 			it "renders the edit template" do
-				patch :update, params: { id: user, :user => invalid_updated_attributes }
+				patch :update, params: { id: @user, :user => @invalid_attributes }
 				expect(response).to render_template('edit')
 			end
 		end
