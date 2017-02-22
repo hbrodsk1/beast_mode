@@ -1,0 +1,5 @@
+<% @valid_outlets.each do |valid_outlet| %>
+	<h2><%= link_to valid_outlet, outlets_path(category: valid_outlet) %></h2>
+	<%= render "descriptions/#{valid_outlet}" %>
+<% end %>
+

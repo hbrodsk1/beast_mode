@@ -1,7 +1,7 @@
 class OutletsController < ApplicationController
 
 	def index
-		@outlets = Outlet.all
+		@outlets = params[:category] ? Outlet.where(category: params[:category]) : Outlet.all
 	end
 
 	def new

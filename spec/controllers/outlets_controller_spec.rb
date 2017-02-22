@@ -14,10 +14,17 @@ RSpec.describe OutletsController, type: :controller do
 			expect(response).to render_template('index')
 		end
 
-		it "assigns all outlets as @outlets" do
+		it "assigns all outlets as @outlets if no param is given" do
 			outlet_1, outlet_2 = FactoryGirl.create(:outlet), FactoryGirl.create(:outlet_2) 
 			get :index
 			expect(assigns(:outlets)).to match_array([outlet_1, outlet_2])
+		end
+
+		it "assigns all outlets with the same value as params[:category] to @outlets" do
+			outlet_1, outlet_2 = FactoryGirl.create(:outlet, category: 'rant'), FactoryGirl.create(:outlet_2, category: 'vent')
+			get :index, params: {category: 'rant'}
+
+			expect(assigns(:outlets)).to match_array([outlet_1])
 		end
 	end
 

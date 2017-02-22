@@ -67,4 +67,13 @@ RSpec.describe Outlet, type: :model do
 			expect(FactoryGirl.build(:outlet, user: nil)).to be_invalid
 		end
 	end
+
+	context 'Class Constants' do
+		describe "Outlet::ALLOWED_CATEGORIES" do
+			it "returns array of categories that will pass validation" do
+				good = %w(vent rant qualm)
+				expect(Outlet::ALLOWED_CATEGORIES).to eq(good)
+			end
+		end
+	end
 end

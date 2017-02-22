@@ -14,6 +14,7 @@ gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+gem 'bootstrap-sass'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -36,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -44,6 +46,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   #Use Rspec for testing app
   gem 'rspec-rails', '~> 3.5'
+  gem 'capybara'
   gem 'rails-controller-testing'
   #Use Factory Girl for testing
   gem 'factory_girl_rails'
