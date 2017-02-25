@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "static_pages/rundown", type: :view do
+	it "has a button to create a new outlet" do
+		assign(:valid_outlets, Outlet::ALLOWED_CATEGORIES)
+		render
+
+		expect(rendered).to have_button("Create Your Own")
+	end
 	it "displays each outlet name" do
 		assign(:valid_outlets, Outlet::ALLOWED_CATEGORIES)
 		render

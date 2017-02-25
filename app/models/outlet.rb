@@ -1,5 +1,5 @@
 class Outlet < ApplicationRecord
-  ALLOWED_CATEGORIES = %w(vent rant qualm).freeze
+  ALLOWED_CATEGORIES = ["vent", "rant", "qualm"].freeze
 
   belongs_to :user
   has_many :comments

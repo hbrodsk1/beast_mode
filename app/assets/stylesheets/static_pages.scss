@@ -1,3 +1,41 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.rundown-jumbotron {
+	text-align: center;
+	.rundown-heading {
+		text-align: center;
+		line-height: 1.5em;
+		letter-spacing: 1.5px;
+		margin-top: 0em;
+	}
+	.create-button {
+		display: inline-block;
+	}
+}
+
+.outlet-info-container {
+	text-align: center;
+	.outlet-dropdown-container {
+		position: relative;
+		.dropdown-menu {
+			position: absolute;
+			left: 40%;
+		}
+	}
+}
+
+.outlet-row {
+	margin-bottom: 2em;
+	border-bottom: 1px solid grey;
+	.outlet-name {
+		clear: both;
+		text-decoration: underline;
+		display: inline-block;
+	}
+	.outlet-description {
+		display: inline-block;
+	}
+}
+

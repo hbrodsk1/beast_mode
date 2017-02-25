@@ -1,5 +1,27 @@
-<% @valid_outlets.each do |valid_outlet| %>
-	<h2><%= link_to valid_outlet, outlets_path(category: valid_outlet) %></h2>
-	<%= render "descriptions/#{valid_outlet}" %>
-<% end %>
+<div class="jumbotron rundown-jumbotron col-md-8 col-md-offset-2">
+	<h2 class="rundown-heading">Learn more about all the available outlets<br>
+	you can use to epxress yourself<br>
+	or</h2>
+	<%= button_to "Create Your Own", new_outlet_path, method: :get, class: "btn btn-primary create-button" %>
+</div>
 
+<div class="outlet-info-container col-md-8 col-md-offset-2">
+	<h3 class="outlet-info-heading">See which outlet will best fit your feelings</h3>
+		<div class="outlet-dropdown-container">
+			<button class="btn btn-info dropdown-toggle outlet-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Outlets <span class="caret"></span></button>
+				<ul class="dropdown-menu">
+					<% @valid_outlets.sort.each do |valid_outlet| %>
+			    		<li class="outlet-info-link"><a id=<%= "#{valid_outlet}" + "-info-link" %> href=#<%= "#{valid_outlet}" + "-heading" %> ><%= "#{valid_outlet}" %></a></li>
+			    	<% end %>
+		  		</ul>
+		</div>
+</div>
+
+<div class="container col-md-8 col-md-offset-2">
+	<% @valid_outlets.sort.each do |valid_outlet| %>
+		<div class="row outlet-row col-md-12">
+			<h2 class="outlet-name"><%= link_to valid_outlet, outlets_path(category: valid_outlet), id: "#{valid_outlet}" + "-heading" %></h2>
+			<%= render "descriptions/#{valid_outlet}" %>
+		</div>
+	<% end %>
+</div>
