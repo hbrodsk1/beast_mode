@@ -1,0 +1,26 @@
+<div class="form-container container col-md-8 col-md-offset-2">
+	<%= form_for @outlet, url: {action: "update"}, html: {class: "new-outlet-form"} do |f| %>
+		
+			<div class="row form-row title-container col-md-7">
+				<%= f.label :title, "Title" %>
+				<%= f.text_field :title, placeholder: "Outlet Title", class: "form-control" %>
+			</div>
+
+			<div class="row form-row outlet-menu-container col-md-3 ">
+				<%= f.select("category", options_for_select([['qualm', 'qualm'], ['vent', 'vent'], ['rant', 'rant']]), { prompt: "Outlet Type"}, class: "form-control dropdown-toggle outlet-dropdown col-md-12")  %>
+			</div>
+
+			<div class="row form-row outlet-urgency-container col-md-2  ">
+				<%= f.select("urgency", options_for_select([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9], [10, 10]]), { prompt: "Urgency"}, class: "form-control select-picker urgency-dropdown col-md-12")  %>
+			</div>
+
+			<div class="row form-row body-container col-md-12">
+				<%= f.label :body, 'Outlet' %>
+				<%= f.text_area :body, size:"60x12", placeholder: "Let it out...", class: "form-control" %>
+			</div>
+			
+			<div class="row form-row col-md-12">
+				<%= f.submit "Update Your Expression", class: "btn btn-success" %>
+			</div>
+	<% end %>
+</div>

@@ -1,3 +1,28 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.user-outlets-container {
+	.user-outlet {
+		border: 1px solid black;
+		.outlet-title {
+			text-align: center;
+		}
+	}
+	.qualm {
+			background-color: #8bb5c0;
+	}
+	.rant {
+			background-color: #c2cf8a;
+	}
+	.vent {
+			background-color: #fddd9b;
+	}
+}
+
+.glyphicon {
+	font-size: 2em;
+	color: red;
+	 height: 50px;
+  	line-height: 50px;
+}
+

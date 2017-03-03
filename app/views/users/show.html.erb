@@ -1,0 +1,12 @@
+<div class="container user-outlets-container col-md-6 col-md-offset-4">
+	<% if @user.outlets.empty? %>
+		<p>This user does not have any outlets... yet</p>
+	<% else %>
+		<% @user.outlets.each do |outlet| %>
+			<div class="user-outlet row <%= outlet.category %> col-md-11">
+				<h4 class="outlet-title"><%= outlet.title %></h4>
+				<p class="outlet-body"><%= outlet.body %></p>
+			</div>
+		<% end %>
+	<% end %>
+</div>

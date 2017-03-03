@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Rundown Click Throughs", :type => :feature do
+RSpec.feature "Rundown Click Throughs", type: :feature do
   scenario "User clicks 'Create Your Own' button" do
     visit "/static_pages/rundown"
 

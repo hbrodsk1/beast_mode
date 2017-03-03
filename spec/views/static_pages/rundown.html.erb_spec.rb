@@ -7,6 +7,7 @@ RSpec.describe "static_pages/rundown", type: :view do
 
 		expect(rendered).to have_button("Create Your Own")
 	end
+	
 	it "displays each outlet name" do
 		assign(:valid_outlets, Outlet::ALLOWED_CATEGORIES)
 		render

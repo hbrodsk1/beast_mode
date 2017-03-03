@@ -9,7 +9,7 @@ class OutletsController < ApplicationController
 	end
 
 	def create
-		@user = User.find(params[:id])
+		@user = current_user
 		@outlet = @user.outlets.build(outlet_params)
 
 		if @outlet.save

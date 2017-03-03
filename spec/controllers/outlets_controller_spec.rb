@@ -66,19 +66,20 @@ RSpec.describe OutletsController, type: :controller do
 
 	describe '#create' do
 		context "with valid attributes" do
-			let(:user) { FactoryGirl.create(:user) }
 			let(:outlet_params) { FactoryGirl.attributes_for(:outlet) }
 
+			login_user
+
 			it "creates a new outlet" do
-				expect { post :create, params: { id: user, :outlet => outlet_params } }.to change(Outlet, :count).by(1)
+				expect { post :create, params: { :outlet => outlet_params } }.to change(Outlet, :count).by(1)
 			end
 
 			it "should increase the user's outlet count by one" do
-				expect { post :create, params: { id: user, :outlet => outlet_params } }.to change(user.outlets, :count).by(1)
+				expect { post :create, params: { :outlet => outlet_params } }.to change(subject.current_user.outlets, :count).by(1)
 			end
 
 			it "redirects to user page" do
-				post :create, params: { id: user, :outlet => outlet_params }
+				post :create, params: { :outlet => outlet_params }
 				expect(response).to redirect_to(assigns(:user))
 			end
 		end
@@ -86,6 +87,8 @@ RSpec.describe OutletsController, type: :controller do
 		context "with invalid attributes" do
 			let(:user) { FactoryGirl.create(:user) }
 			let(:invalid_outlet_params) { FactoryGirl.attributes_for(:invalid_outlet) }
+
+			login_user
 
 			it "does not create a new outlet" do
 				expect { post :create, params: { id: user, :outlet => invalid_outlet_params } }.to_not change(Outlet, :count)
@@ -178,6 +181,9 @@ RSpec.describe OutletsController, type: :controller do
 	describe '#outlet_params' do
 		let(:user) { FactoryGirl.create(:user) }
 		let(:params) { FactoryGirl.attributes_for(:outlet)}
+
+		login_user
+
 		it "should permit only whitelisted attributes" do
     		is_expected.to permit(:category, :title, :body, :urgency, :user).for(:create, params: { id: user, outlet: params} ).on(:outlet)
     	end
