@@ -15,5 +15,19 @@ FactoryGirl.define do
     body ""
     user
     outlet
-  end  
+  end 
+
+  factory :child_comment, class: Comment do
+    body "This is a child comment"
+    user
+    outlet
+    parent_id { FactoryGirl.create(:comment).id }
+  end
+
+  factory :grandchild_comment, class: Comment do
+    body "This is a grandchild comment"
+    user
+    outlet
+    parent_id { FactoryGirl.create(:child_comment).id }
+  end 
 end

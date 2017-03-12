@@ -55,6 +55,40 @@ RSpec.describe CommentsController, type: :controller do
 				expect { create }.to change { Comment.count }.by(0)
 			end
         end
+
+        context 'as child comment' do
+        	before :each do
+        		@comment = FactoryGirl.create(:comment)
+        		@child_comment_params = FactoryGirl.attributes_for(:child_comment, parent_id: @comment.id)
+        	end
+
+        	let(:create) { post :create, params: { outlet_id: @comment.outlet_id, user_id: @comment.user_id, comment: @child_comment_params } }
+
+        	it "creates a new child comment" do
+				expect { create }.to change { @comment.children.count }.by(1)
+			end
+
+			it "increases outlet comment count by 1" do
+				expect { create }.to change { @comment.outlet.comments.count }.by(1)
+			end
+        end
+
+        context 'as a grandchild comment' do
+        	before :each do
+        		@child_comment = FactoryGirl.create(:child_comment)
+        		@grandchild_comment_params = FactoryGirl.attributes_for(:grandchild_comment, parent_id: @child_comment.id)
+        	end
+
+        	let(:create) { post :create, params: { outlet_id: @child_comment.outlet_id, user_id: @child_comment.user_id, comment: @grandchild_comment_params } }
+
+        	it "creates a new grandchild comment" do
+        		expect { create }.to change { @child_comment.children.count }.by(1)
+        	end
+
+        	it "increases outlet comment count by 1" do
+				expect { create }.to change { @child_comment.outlet.comments.count }.by(1)
+			end
+        end
 	end
 
 	describe '#edit' do
@@ -147,5 +181,17 @@ RSpec.describe CommentsController, type: :controller do
 			destroy
 			expect(response).to redirect_to(@comment.outlet)
 		end
+	end
+
+	describe '#comment_params' do
+		let(:user) { FactoryGirl.create(:user) }
+		let(:outlet) { FactoryGirl.create(:outlet) }
+		let(:params) { FactoryGirl.attributes_for(:comment)}
+
+		login_user
+
+		it "should permit only whitelisted attributes" do
+    		is_expected.to permit(:body, :outlet, :user, :parent_id).for(:create, params: { outlet_id: outlet, user_id: user, comment: params} ).on(:comment)
+    	end
 	end
 end

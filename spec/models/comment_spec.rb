@@ -4,11 +4,13 @@ RSpec.describe Comment, type: :model do
   
   it "has a valid factory" do
   	expect(FactoryGirl.create(:comment)).to be_valid
+    expect(FactoryGirl.create(:child_comment)).to be_valid
   end
 
   context 'associations' do
   	it { is_expected.to belong_to(:user) }
   	it { is_expected.to belong_to(:outlet) }
+    it { is_expected.to have_many(:children) }
   end
 
   context 'validations' do
