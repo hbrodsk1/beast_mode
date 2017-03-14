@@ -2,6 +2,29 @@ require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
 
+	describe '#index' do
+		before :each do
+			@outlet = FactoryGirl.create(:outlet)
+			@comments = [FactoryGirl.create(:comment, outlet: @outlet),
+						FactoryGirl.create(:comment, outlet: @outlet, body: 'Second Comment')]
+		end
+
+		it "responds successfully with an HTTP 200 status code" do
+			get :index, params: { outlet_id: @outlet.id }
+			expect(response).to have_http_status(200)
+		end
+
+		it "renders the index template" do
+			get :index, params: { outlet_id: @outlet.id }
+			expect(response).to render_template('index')
+		end
+
+		it "assigns outlet comments as @comments" do
+			get :index, params: { outlet_id: @outlet.id }
+			expect(assigns(:comments)).to eq(@comments)
+		end
+	end
+
 	describe '#new' do
 		it "responds successfully with an HTTP 200 status code" do
 			get :new

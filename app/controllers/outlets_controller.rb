@@ -41,7 +41,7 @@ class OutletsController < ApplicationController
 		@outlet = Outlet.find(params[:id])
 
 		if @outlet.destroy
-			redirect_to outlets_path
+			redirect_to @outlet.user
 		end
 	end
 

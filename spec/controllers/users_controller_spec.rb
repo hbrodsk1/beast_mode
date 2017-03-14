@@ -39,6 +39,7 @@ RSpec.describe UsersController, type: :controller do
 
 	describe '#show' do
 		let(:user) { FactoryGirl.create(:user) }
+		
 
  		it "responds successfuly with an HTTP 200 status code" do
 			get :show, params: { id: user }
@@ -53,6 +54,23 @@ RSpec.describe UsersController, type: :controller do
 		it "assigns the requested user to @user" do
 			get :show, params: { id: user }
 			expect(assigns(:user)).to eq(user)
+		end
+
+		context 'no params given' do
+			it "it lists all user outlets" do
+				get :show, params: { id: user }
+				expect(assigns(:user_outlets).count).to eq(user.outlets.count)
+			end
+		end
+
+		context 'with params given' do
+			it "it lists all user outlets with the category given in params" do
+				@user_outlets = [FactoryGirl.create(:outlet, user: user, category: "rant"),
+								FactoryGirl.create(:outlet, title: "second title", body: "second body", user: user)]
+
+				get :show, params: { id: user, category: 'rant' }
+				expect(assigns(:user_outlets).count).to eq(1)
+			end
 		end
 	end
 

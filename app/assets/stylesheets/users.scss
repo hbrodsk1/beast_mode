@@ -1,21 +1,203 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user-container {
+ 	position: relative;
+ 	padding: 0;
+ 	border: 1px solid black;
+ 	margin-top: 2em;
+ 	margin-bottom: 3em;
+ 	text-align: center;
+	.user-info-box {
+		padding-left: 1em;
+		padding-right: 1em;
+		height: 15em;
+		border: 1px solid black;
+		.user-username {
+			display: flex;
+  			align-items: center;
+  			justify-content: center;
+			height: 30%;
+			position: relative;
+			margin-bottom: 5%;
+			h2 {
+				font-size: 2vw;
+			}
+		}
+		.user-middle {
+			display: flex;
+  			align-items: center;
+  			justify-content: center;
+			height: 30%;
+			position: relative;
+			margin-bottom: 5%;
+		}
+		.user-bio {
+			display: flex;
+  			align-items: center;
+  			justify-content: center;
+			position: relative;
+			height: 30%;
+			font-style: italic;
+		}
+	}
+	.outlet-bar-container {
+		height: 15em;
+		text-align: center;
+		.top-bar {
+			border-bottom: 4px solid red;
+			height: 45%;
+			position: relative;
+			margin-bottom: 5%;
+			.top-bar-title {
+				margin: 0;
+				height: 30%;
+				width: 100%;
+				font-size: 2em;
+				top: 10%;
+				position: absolute;
+			}
+			.create-outlet-buttons {
+				position: absolute;
+				width: 100%;
+				bottom: 5%;
+				left: 0;
+			}			
+		}
+		.bottom-bar {
+			border-top: 4px solid red;
+			height: 40%;
+			text-align: center;
+			position: relative;
+			.bottom-bar-title {
+				margin: 0;
+				height: 30%;
+				width: 100%;
+				top: 15%;
+				position: absolute;
+			}
+			.user-outlet-buttons {
+				position: absolute;
+				width: 100%;
+				bottom: 5%;
+				left: 0;
+				margin-left: 1%;
+				display: inline-block;
+				.user-outlet-option {
+					width: 23%;
+					margin-right: 2%;
+				}
+			}
+		}
+	}
+	
+}
+
+.outlet-bar-container {
+	margin-right: 0;
+}
+
+
 .user-outlets-container {
 	.user-outlet {
+		position: relative;
 		border: 1px solid black;
+		min-height: 10em;
+		margin-bottom: 3em;
+		padding: 0;
+		.outlet-category {
+			float: left;
+			text-align: center;
+			border-bottom: 1px solid #fff;
+		}
 		.outlet-title {
 			text-align: center;
+			margin-top: 1%;
+			margin-bottom: 1%;
+		}
+		.outlet-urgency {
+			float: right;
+			text-align: center;
+			border-bottom: 1px solid #fff;
+		}
+		.outlet-posted-at {
+			text-align: center;
+			font-size: .3 em;
+			margin-top: 0;
+			clear: both;
+			border-bottom: 1px solid #fff;
+		}
+		.outlet-body {
+			background-color: #fff;
+			margin-top: 1em;
+			margin-bottom: 2em;
+			padding-bottom: 1em;
+		}
+		.outlet-bottom-bar {
+			height: 2.5em;
+			background-color: #c2cf8a;
+			padding: 0;
+			.outlet-comment-buttons {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				padding: 0;
+				.outlet-comment-button {
+					height: 100%;
+					margin-left: 1%;
+					border-radius: 5px;
+				}
+			}
+			.outlet-option-buttons {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				padding: 0;
+				.outlet-option-button {
+					height: 100%;
+					margin-right: 1%;
+					float: right;
+					border-radius: 5px;
+				}
+			}
 		}
 	}
 	.qualm {
+		border: 1px solid #8bb5c0;
+		.outlet-head {
 			background-color: #8bb5c0;
+		}
+		.outlet-body {
+			border-bottom: 1px solid #8bb5c0;
+		}
+		.outlet-bottom-bar {
+			background-color: #8bb5c0;
+		}
 	}
 	.rant {
+		border: 1px solid #c2cf8a;
+		.outlet-head{
 			background-color: #c2cf8a;
+		}
+		.outlet-body {
+			border-bottom: 1px solid #c2cf8a;
+		}
+		.outlet-bottom-bar {
+			background-color: #c2cf8a;
+		}
 	}
 	.vent {
+		border: 1px solid #fddd9b;
+		.outlet-head {
 			background-color: #fddd9b;
+		}
+		.outlet-body {
+			border-bottom: 1px solid #fddd9b;
+		}
+		.outlet-bottom-bar {
+			background-color: #fddd9b;
+		}
 	}
 }
 
@@ -26,3 +208,6 @@
   	line-height: 50px;
 }
 
+.outlet-option-button {
+	border-radius: 0;
+}

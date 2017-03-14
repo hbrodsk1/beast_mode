@@ -1,5 +1,10 @@
 class CommentsController < ApplicationController
 
+	def index
+		@outlet = Outlet.find(params[:outlet_id])
+		@comments = @outlet.comments.all
+	end
+
 	def new
 		@comment = Comment.new
 	end

@@ -1,12 +1,60 @@
-<div class="container user-outlets-container col-md-6 col-md-offset-4">
-	<% if @user.outlets.empty? %>
-		<p>This user does not have any outlets... yet</p>
-	<% else %>
-		<% @user.outlets.each do |outlet| %>
+<div class="user-container row">
+	<div class="user-info-box col-md-2 col-md-offset-2">
+		<div class="user-username"><h2> <%= @user.email %> </h2></div>
+		<div class="user-middle"><span class="glyphicon glyphicon-user"></span></div>
+		<div class="user-bio"><p>This is my amazing quote that describes me so well</p></div>
+	</div>
+	<div class="outlet-bar-container col-md-6 col-md-offset-1">
+		<div class="top-bar">
+			<h5 class="top-bar-title">Starting to feel something..?</h5>
+			<div class="btn-group create-outlet-buttons" role="group">
+				<%= button_to "Create Your Own Outlet", new_outlet_path, method: :get, id: "create-outlet-button", class: "btn btn-primary create-outlet-button" %>
+			</div>
+		</div>
+
+		<div class="bottom-bar">
+			<h5 class="bottom-bar-title">Check out how <%= @user.email %> has been feeling</h5>
+			<div class="btn-group user-outlet-buttons" role="group">
+				<%= link_to "Newest Outlets", user_path(@user), id: "newest-outlet-button", class: "btn btn-primary user-outlet-option", role: "button" %>
+				<%= link_to "Vents", user_path(@user, category: "vent"), id: "user-vent-button", class: "btn btn-info user-outlet-option", role: "button" %>
+				<%= link_to "Rants", user_path(@user, category: "rant"), id: "user-rant-button", class: "btn btn-warning user-outlet-option", role: "button" %>
+				<%= link_to "Qualms", user_path(@user, category: "qualm"), id: "user-qualm-button", class: "btn btn-danger user-outlet-option", role: "button" %>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="container user-outlets-container col-md-7 col-md-offset-5">
+	<% if @user_outlets %>
+		<% @user_outlets.each do |outlet| %>
 			<div class="user-outlet row <%= outlet.category %> col-md-11">
-				<h4 class="outlet-title"><%= outlet.title %></h4>
-				<p class="outlet-body"><%= outlet.body %></p>
+				<div class="outlet-head col-md-12">
+					<h6 class="outlet-category col-md-2"> <%= outlet.category.capitalize %> </h6>
+					<h3 class="outlet-title col-md-8"><%= outlet.title %></h3>
+					<h6 class="outlet-urgency col-md-2">Urgency: <%= outlet.urgency%> </h6>
+					<h6 class="outlet-posted-at">Posted: <%= outlet.created_at.strftime("%B %e, %Y") %></h6>
+				</div>
+
+				<div class="outlet-body col-md-12">
+					<%= outlet.body %>
+				</div>
+
+				<div class="outlet-bottom-bar col-md-12">
+					<div class="outlet-comment-buttons col-md-6">
+						<%= link_to "Comment", new_comment_path, id: "create-outlet-comment-button", class: "btn btn-success outlet-comment-button glyphicon glyphicon-pencil", role: "button" %>
+						<%= link_to "All Comments (#{outlet.comments.count})", comments_path(outlet_id: outlet.id), id: "view-outlet-comments-button", class: "btn btn-primary outlet-comment-button", role: "button" %>
+					</div>
+					<div class="outlet-option-buttons col-md-6">
+						<%= link_to "Delete", outlet_path(outlet), data: {:confirm => 'Are you sure?'}, method: :delete, id: "delete-outlet-button", class: "glyphicon glyphicon-trash btn btn-danger outlet-option-button", role: "button" %>
+						<%= link_to 'Edit', edit_outlet_path(outlet), id: "edit-outlet-button", class: "btn btn-primary glyphicon glyphicon-edit outlet-option-button", role: "button" %>
+					</div>
+				</div>
+
 			</div>
 		<% end %>
+	<% else %>
+		<p>This user does not have any outlets... yet</p>
 	<% end %>
 </div>

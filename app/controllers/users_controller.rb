@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
+		@user_outlets = params[:category] ? @user.outlets.where(category: params[:category]) : @user.outlets.all.order(created_at: :desc)							
 	end
 
 	def edit

@@ -9,8 +9,8 @@
   </head>
 
   <body>
-  	<div class="container">
-	  	<nav class="navbar navbar-inverse col-md-10 col-md-offset-1">
+  	<div class="container navbar-container">
+	  	<nav class="navbar navbar-inverse col-md-12">
 	  		<div class="fluid-container">
 	  			<div class="navbar-header">
 	  				<a class="navbar-brand" href="#">C-Mar</a>
@@ -18,7 +18,12 @@
 	  			<ul class="nav navbar-nav">
 	  				<li class="nav-item"><%= link_to "Rundown", static_pages_rundown_path %></li>
 	  			</ul>
-	  			<ul class="nav navbar-nav navbar-right">
+
+	  			<ul class="nav navbar-nav header-middle">
+	  				<li class="nav-item header-title">Melon Juice</li>
+	  			</ul>
+
+	  			<ul class="nav navbar-nav navbar-right right-nav">
 	  				<% if signed_in? %>
 	  					<li class="nav-item"><%= link_to "Profile", user_path(current_user) %></li>
 	  					<li class="nav-item"><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>

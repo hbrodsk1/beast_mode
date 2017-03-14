@@ -171,9 +171,9 @@ RSpec.describe OutletsController, type: :controller do
 			expect { delete :destroy, params: { id: @outlet } }.to change(Outlet, :count).by(-1)
 		end
 
-		it "redirects to the outlet index page" do
+		it "redirects to the outlet's user page" do
 			delete :destroy, params: { id: @outlet }
-			expect(response).to redirect_to(outlets_url) 
+			expect(response).to redirect_to(user_path(@outlet.user)) 
 		end
 	end
 

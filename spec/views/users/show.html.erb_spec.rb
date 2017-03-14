@@ -4,7 +4,7 @@ RSpec.describe "users/show", type: :view do
 	context "user has outlets" do
 		before(:all) do
 			@user = FactoryGirl.create(:user)
-			outlets = [FactoryGirl.create(:outlet, user: @user),
+			@user_outlets = [FactoryGirl.create(:outlet, user: @user),
 						FactoryGirl.create(:outlet, title: "second title", body: "second body", user: @user)]
 		end
 
