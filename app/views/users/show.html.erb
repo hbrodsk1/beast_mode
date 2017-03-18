@@ -43,7 +43,7 @@
 
 				<div class="outlet-bottom-bar col-md-12">
 					<div class="outlet-comment-buttons col-md-6">
-						<%= link_to "Comment", new_comment_path, id: "create-outlet-comment-button", class: "btn btn-success outlet-comment-button glyphicon glyphicon-pencil", role: "button" %>
+						<%= link_to "Comment", new_comment_path(outlet_id: outlet.id), id: "create-outlet-comment-button", class: "btn btn-success outlet-comment-button glyphicon glyphicon-pencil", role: "button" %>
 						<%= link_to "All Comments (#{outlet.comments.count})", comments_path(outlet_id: outlet.id), id: "view-outlet-comments-button", class: "btn btn-primary outlet-comment-button", role: "button" %>
 					</div>
 					<div class="outlet-option-buttons col-md-6">

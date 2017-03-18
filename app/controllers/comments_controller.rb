@@ -7,16 +7,20 @@ class CommentsController < ApplicationController
 
 	def new
 		@comment = Comment.new
+		@outlet = Outlet.find(params[:outlet_id])
+		@user = current_user
 	end
 
 	def create
-		@outlet = Outlet.find(params[:outlet_id])
+		@outlet = Outlet.find(params[:comment][:outlet_id])
 		@comment = @outlet.comments.build(comment_params)
-		@comment.user_id = User.find(params[:user_id]).id
+		@comment.user_id = params[:comment][:user_id]
 		
 
 		if @comment.save
 			redirect_to(@outlet)
+		else
+			render "new"
 		end
 	end
 

@@ -26,18 +26,21 @@ RSpec.describe CommentsController, type: :controller do
 	end
 
 	describe '#new' do
+		before :each do
+			@outlet = FactoryGirl.create(:outlet)
+		end
 		it "responds successfully with an HTTP 200 status code" do
-			get :new
+			get :new, params: { outlet_id: @outlet.id }
 			expect(response).to have_http_status(200)
 		end
 
 		it "renders the new template" do
-			get :new
+			get :new, params: { outlet_id: @outlet.id }
 			expect(response).to render_template('new')
 		end
 
 		it "assigns new comment as @comment" do
-			get :new
+			get :new, params: { outlet_id: @outlet.id }
 			expect(assigns(:comment)).to be_a_new(Comment)
 		end
 	end
@@ -50,7 +53,7 @@ RSpec.describe CommentsController, type: :controller do
 				@comment_params =  FactoryGirl.attributes_for(:comment)
 			end
 
-            let(:create) { post :create, params: { outlet_id: @outlet.id, user_id: @user.id, comment: @comment_params } }
+            let(:create) { post :create, params: { comment: { outlet_id: @outlet.id, user_id: @user.id, body: @comment_params[:body] } } }
 
             it "creates new comment" do
                 expect { create }.to change { Comment.count }.by(1)
@@ -72,7 +75,7 @@ RSpec.describe CommentsController, type: :controller do
 				@invalid_comment_params =  FactoryGirl.attributes_for(:invalid_comment)
 			end
 
-			let(:create) { post :create, params: { outlet_id: @outlet.id, user_id: @user.id, comment: @invalid_comment_params } }
+			let(:create) { post :create, params: { comment: { outlet_id: @outlet.id, user_id: @user.id, body: @invalid_comment_params[:body] } } }
 
 			it "does not create a new comment" do
 				expect { create }.to change { Comment.count }.by(0)
@@ -85,7 +88,7 @@ RSpec.describe CommentsController, type: :controller do
         		@child_comment_params = FactoryGirl.attributes_for(:child_comment, parent_id: @comment.id)
         	end
 
-        	let(:create) { post :create, params: { outlet_id: @comment.outlet_id, user_id: @comment.user_id, comment: @child_comment_params } }
+        	let(:create) { post :create, params: {comment: { outlet_id: @comment.outlet_id, user_id: @comment.user_id, parent_id: @child_comment_params[:parent_id], body: @child_comment_params[:body] } } }
 
         	it "creates a new child comment" do
 				expect { create }.to change { @comment.children.count }.by(1)
@@ -102,7 +105,7 @@ RSpec.describe CommentsController, type: :controller do
         		@grandchild_comment_params = FactoryGirl.attributes_for(:grandchild_comment, parent_id: @child_comment.id)
         	end
 
-        	let(:create) { post :create, params: { outlet_id: @child_comment.outlet_id, user_id: @child_comment.user_id, comment: @grandchild_comment_params } }
+        	let(:create) { post :create, params: {comment: { outlet_id: @child_comment.outlet_id, user_id: @child_comment.user_id, parent_id: @grandchild_comment_params[:parent_id], body: @grandchild_comment_params[:body] } } }
 
         	it "creates a new grandchild comment" do
         		expect { create }.to change { @child_comment.children.count }.by(1)
@@ -214,7 +217,7 @@ RSpec.describe CommentsController, type: :controller do
 		login_user
 
 		it "should permit only whitelisted attributes" do
-    		is_expected.to permit(:body, :outlet, :user, :parent_id).for(:create, params: { outlet_id: outlet, user_id: user, comment: params} ).on(:comment)
+    		is_expected.to permit(:body, :outlet, :user, :parent_id).for(:create, params: {comment: { outlet_id: outlet, user_id: user, comment: params} } ).on(:comment)
     	end
 	end
 end

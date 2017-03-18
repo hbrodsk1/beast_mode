@@ -109,7 +109,7 @@ RSpec.feature "view user/show page", type: :feature do
 		visit "/users/#{@user.id}"
 
 		first('#create-outlet-comment-button').click
-		expect(page).to have_current_path(new_comment_path)
+		expect(page).to have_current_path(new_comment_path(outlet_id: @user_outlets.id))
 	end
 
 	scenario "user clicks view comments button" do
